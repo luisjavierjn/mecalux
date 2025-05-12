@@ -8,6 +8,9 @@ import com.mecalux.test.services.mappers.WarehouseMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class WarehouseService {
@@ -18,5 +21,11 @@ public class WarehouseService {
     final Warehouse warehouse = this.warehouseMapper.toEntity(request);
     final Warehouse retWarehouse = this.warehouseRepository.save(warehouse);
     return this.warehouseMapper.toDTO(retWarehouse);
+  }
+
+  public List<WarehouseDTO> getAll() {
+    return this.warehouseRepository.findAll().stream()
+            .map(this.warehouseMapper::toDTO)
+            .collect(Collectors.toList());
   }
 }

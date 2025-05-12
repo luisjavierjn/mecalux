@@ -12,5 +12,5 @@ public class WarehouseDTO {
   private String client;
   private String family;
   private Integer size;
-//  private final List<Rack> racks = new ArrayList<>();
+  private final List<Rack> racks = new ArrayList<>();
 }
