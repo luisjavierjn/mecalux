@@ -51,8 +51,8 @@ public class Rack {
   @Column(name = "TYPE", nullable = false, length = 1)
   private String type;
 
-  public Rack(RackType type, Warehouse warehouse) {
-    this.uuid = UUID.randomUUID().toString();
+  public Rack(String uuid, RackType type, Warehouse warehouse) {
+    this.uuid = uuid;
     this.type = type.name();
     this.warehouse = warehouse;
   }

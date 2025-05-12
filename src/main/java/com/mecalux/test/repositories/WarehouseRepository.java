@@ -1,9 +1,9 @@
 package com.mecalux.test.repositories;
 
 import com.mecalux.test.domain.entities.Warehouse;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WarehouseRepository extends JpaRepository<Warehouse, Integer> {
+public interface WarehouseRepository extends CrudRepository<Warehouse, Integer> {
 }

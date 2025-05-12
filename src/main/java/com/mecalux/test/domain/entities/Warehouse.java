@@ -41,11 +41,11 @@ public class Warehouse {
   @Column(name = "SIZE", nullable = false)
   private Integer size;
 
-  @OneToMany(
-          mappedBy = "warehouse",
-          cascade = CascadeType.ALL,
-          orphanRemoval = true,
-          fetch = FetchType.LAZY
-  )
-  private final List<Rack> racks = new ArrayList<>();
+//  @OneToMany(
+//          mappedBy = "warehouse",
+//          cascade = CascadeType.ALL,
+//          orphanRemoval = true,
+//          fetch = FetchType.LAZY
+//  )
+//  private final List<Rack> racks = new ArrayList<>();
 }

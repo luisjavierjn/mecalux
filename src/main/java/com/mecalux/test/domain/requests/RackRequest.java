@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 public class RackRequest {
-  private Integer id;
   private Integer warehouseId;
   private String uuid;
   private RackType rackType;

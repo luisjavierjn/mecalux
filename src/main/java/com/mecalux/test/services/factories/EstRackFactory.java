@@ -12,10 +12,10 @@ public class EstRackFactory implements RackFactory {
           EnumSet.of(RackType.A, RackType.B, RackType.C);
 
   @Override
-  public Rack createRack(RackType type, Warehouse warehouse) {
+  public Rack createRack(String uuid, RackType type, Warehouse warehouse) {
     if (!ALLOWED.contains(type)) {
       throw new IllegalArgumentException("Tipo no permitido en EST: " + type);
     }
-    return new Rack(type, warehouse);
+    return new Rack(uuid, type, warehouse);
   }
 }

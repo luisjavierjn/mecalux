@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class WarehouseService {
   }
 
   public List<WarehouseDTO> getAll() {
-    return this.warehouseRepository.findAll().stream()
+    return StreamSupport.stream(this.warehouseRepository.findAll().spliterator(), false)
             .map(this.warehouseMapper::toDTO)
             .collect(Collectors.toList());
   }

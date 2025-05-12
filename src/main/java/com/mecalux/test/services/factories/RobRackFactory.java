@@ -12,10 +12,10 @@ public class RobRackFactory implements RackFactory {
           EnumSet.of(RackType.A, RackType.C, RackType.D);
 
   @Override
-  public Rack createRack(RackType type, Warehouse warehouse) {
+  public Rack createRack(String uuid, RackType type, Warehouse warehouse) {
     if (!ALLOWED.contains(type)) {
       throw new IllegalArgumentException("Tipo no permitido en ROB: " + type);
     }
-    return new Rack(type, warehouse);
+    return new Rack(uuid, type, warehouse);
   }
 }

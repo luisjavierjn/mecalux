@@ -5,5 +5,5 @@ import com.mecalux.test.domain.entities.Warehouse;
 import com.mecalux.test.domain.enums.RackType;
 
 public interface RackFactory {
-  Rack createRack(RackType type, Warehouse warehouse);
+  Rack createRack(String uuid, RackType type, Warehouse warehouse);
 }
