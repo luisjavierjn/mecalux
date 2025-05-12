@@ -27,9 +27,4 @@ public class TestApplication {
 		return rackFactories;
 	}
 
-	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
-	}
-
 }
