@@ -14,7 +14,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +40,11 @@ public class RackService {
     final Rack rack = factory.createRack(request.getUuid(), request.getRackType(), warehouseOpt.get());
     final Rack retRack = this.rackRepository.save(rack);
     return this.rackMapper.toDTO(retRack);
+  }
+
+  public List<RackDTO> getAll() {
+    return StreamSupport.stream(this.rackRepository.findAll().spliterator(), false)
+            .map(this.rackMapper::toDTO)
+            .collect(Collectors.toList());
   }
 }
