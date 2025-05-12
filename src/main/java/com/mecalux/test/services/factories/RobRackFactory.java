@@ -16,6 +16,6 @@ public class RobRackFactory implements RackFactory {
     if (!ALLOWED.contains(type)) {
       throw new IllegalArgumentException("Tipo no permitido en ROB: " + type);
     }
-    return new Rack(uuid, type, warehouse);
+    return new Rack(uuid, type.name(), warehouse);
   }
 }

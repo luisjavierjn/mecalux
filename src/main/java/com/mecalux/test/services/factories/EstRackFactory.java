@@ -16,6 +16,6 @@ public class EstRackFactory implements RackFactory {
     if (!ALLOWED.contains(type)) {
       throw new IllegalArgumentException("Tipo no permitido en EST: " + type);
     }
-    return new Rack(uuid, type, warehouse);
+    return new Rack(uuid, type.name(), warehouse);
   }
 }

@@ -51,9 +51,9 @@ public class Rack {
   @Column(name = "TYPE", nullable = false, length = 1)
   private String type;
 
-  public Rack(String uuid, RackType type, Warehouse warehouse) {
+  public Rack(String uuid, String type, Warehouse warehouse) {
     this.uuid = uuid;
-    this.type = type.name();
+    this.type = type;
     this.warehouse = warehouse;
   }
 }
