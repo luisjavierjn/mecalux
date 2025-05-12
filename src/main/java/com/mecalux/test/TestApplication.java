@@ -4,7 +4,6 @@ import com.mecalux.test.domain.enums.FamilyType;
 import com.mecalux.test.services.factories.EstRackFactory;
 import com.mecalux.test.services.factories.RackFactory;
 import com.mecalux.test.services.factories.RobRackFactory;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

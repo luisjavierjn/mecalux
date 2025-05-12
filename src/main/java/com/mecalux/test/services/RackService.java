@@ -10,7 +10,6 @@ import com.mecalux.test.repositories.WarehouseRepository;
 import com.mecalux.test.services.factories.RackFactory;
 import com.mecalux.test.services.mappers.RackMapper;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.EnumMap;
@@ -26,7 +25,6 @@ public class RackService {
   private final WarehouseRepository warehouseRepository;
   private final EnumMap<FamilyType, RackFactory> rackFactories;
   private final RackMapper rackMapper;
-  private final ModelMapper modelMapper;
 
   public RackDTO add(RackRequest request) {
     final Optional<Warehouse> warehouseOpt = this.warehouseRepository.findById(request.getWarehouseId());
