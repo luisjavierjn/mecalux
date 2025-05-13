@@ -17,19 +17,19 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Warehouse {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-  @Column(name = "UUID", nullable = false, length = 36)
-  private String uuid; // = UUID.randomUUID().toString();
+	@Column(name = "UUID", nullable = false, length = 36)
+	private String uuid;
 
-  @Column(name = "CLIENT", nullable = false, length = 50)
-  private String client;
+	@Column(name = "CLIENT", nullable = false, length = 50)
+	private String client;
 
-  @Column(name = "FAMILY", nullable = false, length = 3)
-  private String family;
+	@Column(name = "FAMILY", nullable = false, length = 3)
+	private String family;
 
-  @Column(name = "SIZE", nullable = false)
-  private Integer size;
+	@Column(name = "SIZE", nullable = false)
+	private Integer size;
 }

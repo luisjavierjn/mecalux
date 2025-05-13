@@ -7,6 +7,7 @@ import com.mecalux.test.domain.requests.WarehouseRequest;
 import com.mecalux.test.repositories.WarehouseRepository;
 import com.mecalux.test.services.factories.permutation.PermutationFactory;
 import com.mecalux.test.services.mappers.WarehouseMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,21 @@ public class WarehouseService {
 			final PermutationFactory factory = this.permutationFactories.get(FamilyType.fromString(family));
 			return factory.generate(w.getSize());
 		}).orElseThrow(() -> new IllegalArgumentException("Familia no soportada"));
+	}
+
+	public WarehouseDTO update(Integer id, @Valid WarehouseRequest request) {
+		final Warehouse warehouse = this.warehouseRepository.findById(id).map(w -> {
+			w.setUuid(request.getUuid());
+			w.setClient(request.getClient());
+			w.setFamily(request.getFamilyType().name());
+			w.setSize(request.getSize());
+			return w;
+		}).orElseThrow(() -> new IllegalArgumentException("Warehouse not found"));
+		final Warehouse retWarehouse = this.warehouseRepository.save(warehouse);
+		return this.warehouseMapper.toDTO(retWarehouse);
+	}
+
+	public void delete(Integer id) {
+		this.warehouseRepository.deleteById(id);
 	}
 }

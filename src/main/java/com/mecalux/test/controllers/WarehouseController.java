@@ -6,9 +6,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,5 +46,18 @@ public class WarehouseController {
 	public ResponseEntity<?> getPermutations(@PathVariable Integer id) {
 		log.debug("{} Getting permutations for warehouse with id: {}", LOG_PREFIX, id);
 		return ResponseEntity.ok(this.warehouseService.getPermutations(id));
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody @Valid WarehouseRequest request) {
+		log.debug("{} Updating warehouse with id: {} and request: {}", LOG_PREFIX, id, request);
+		return ResponseEntity.ok(this.warehouseService.update(id, request));
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable Integer id) {
+		log.debug("{} Deleting warehouse with id: {}", LOG_PREFIX, id);
+		this.warehouseService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }
