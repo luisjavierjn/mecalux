@@ -1,6 +1,5 @@
 package com.mecalux.test.domain.entities;
 
-import com.mecalux.test.domain.enums.RackType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,24 +11,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
-
-//public class Rack {
-//  private final UUID uuid;
-//  @Getter
-//  private final RackType type;
-//  public Rack(RackType type) {
-//    this.uuid = UUID.randomUUID();
-//    this.type = type;
-//  }
-//}
-
-import jakarta.persistence.*;
-        import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "RACKS")

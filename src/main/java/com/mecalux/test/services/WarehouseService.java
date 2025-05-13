@@ -29,4 +29,10 @@ public class WarehouseService {
             .map(this.warehouseMapper::toDTO)
             .collect(Collectors.toList());
   }
+
+  public WarehouseDTO getById(Integer id) {
+    return this.warehouseRepository.findById(id)
+            .map(this.warehouseMapper::toDTO)
+            .orElseThrow(() -> new IllegalArgumentException("Rack no encontrado"));
+  }
 }

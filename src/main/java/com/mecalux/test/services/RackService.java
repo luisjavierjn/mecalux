@@ -5,10 +5,12 @@ import com.mecalux.test.domain.entities.Rack;
 import com.mecalux.test.domain.entities.Warehouse;
 import com.mecalux.test.domain.enums.FamilyType;
 import com.mecalux.test.domain.requests.RackRequest;
+import com.mecalux.test.domain.responses.RackResponse;
 import com.mecalux.test.repositories.RackRepository;
 import com.mecalux.test.repositories.WarehouseRepository;
 import com.mecalux.test.services.factories.RackFactory;
 import com.mecalux.test.services.mappers.RackMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +46,17 @@ public class RackService {
     return StreamSupport.stream(this.rackRepository.findAll().spliterator(), false)
             .map(this.rackMapper::toDTO)
             .collect(Collectors.toList());
+  }
+
+  public List<RackResponse> getByWarehouseId(Integer warehouseId) {
+    return this.rackRepository.findByWarehouseId(warehouseId).stream()
+            .map(this.rackMapper::toResponse)
+            .collect(Collectors.toList());
+  }
+
+  public RackDTO getById(Integer id) {
+    return this.rackRepository.findById(id)
+            .map(this.rackMapper::toDTO)
+            .orElseThrow(() -> new IllegalArgumentException("Rack no encontrado"));
   }
 }

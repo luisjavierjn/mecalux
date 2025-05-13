@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,13 @@ public class WarehouseController {
     return ResponseEntity.ok(this.warehouseService.add(request));
   }
 
-  @GetMapping
+  @GetMapping("/all")
   public ResponseEntity<?> getAll() {
     return ResponseEntity.ok(this.warehouseService.getAll());
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<?> getById(@PathVariable Integer id) {
+    return ResponseEntity.ok(this.warehouseService.getById(id));
   }
 }
