@@ -1,6 +1,5 @@
 package com.mecalux.test.repositories;
 
-import com.mecalux.test.domain.entities.Rack;
 import com.mecalux.test.domain.entities.Warehouse;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
