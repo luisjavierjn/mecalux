@@ -8,9 +8,8 @@ import com.mecalux.test.domain.requests.RackRequest;
 import com.mecalux.test.domain.responses.RackResponse;
 import com.mecalux.test.repositories.RackRepository;
 import com.mecalux.test.repositories.WarehouseRepository;
-import com.mecalux.test.services.factories.RackFactory;
+import com.mecalux.test.services.factories.rack.RackFactory;
 import com.mecalux.test.services.mappers.RackMapper;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,40 +25,33 @@ import java.util.stream.StreamSupport;
 @Service
 @RequiredArgsConstructor
 public class RackService {
-  private final RackRepository rackRepository;
-  private final WarehouseRepository warehouseRepository;
-  private final EnumMap<FamilyType, RackFactory> rackFactories;
-  private final RackMapper rackMapper;
+	private final RackRepository rackRepository;
+	private final WarehouseRepository warehouseRepository;
+	private final EnumMap<FamilyType, RackFactory> rackFactories;
+	private final RackMapper rackMapper;
 
-  public RackDTO add(RackRequest request) {
-    final Optional<Warehouse> warehouseOpt = this.warehouseRepository.findById(request.getWarehouseId());
-    final RackFactory factory = warehouseOpt
-            .map(Warehouse::getFamily)
-            .map(FamilyType::fromString)
-            .map(this.rackFactories::get)
-            .orElseThrow(() -> new IllegalArgumentException(
-                    "Familia no soportada: " + warehouseOpt.map(Warehouse::getFamily).orElse("unknown")
-            ));
-    final Rack rack = factory.createRack(request.getUuid(), request.getRackType(), warehouseOpt.get());
-    final Rack retRack = this.rackRepository.save(rack);
-    return this.rackMapper.toDTO(retRack);
-  }
+	public RackDTO add(RackRequest request) {
+		final Optional<Warehouse> warehouseOpt = this.warehouseRepository.findById(request.getWarehouseId());
+		final RackFactory factory = warehouseOpt.map(Warehouse::getFamily).map(FamilyType::fromString)
+				.map(this.rackFactories::get).orElseThrow(() -> new IllegalArgumentException(
+						"Familia no soportada: " + warehouseOpt.map(Warehouse::getFamily).orElse("unknown")));
+		final Rack rack = factory.createRack(request.getUuid(), request.getRackType(), warehouseOpt.get());
+		final Rack retRack = this.rackRepository.save(rack);
+		return this.rackMapper.toDTO(retRack);
+	}
 
-  public List<RackDTO> getAll() {
-    return StreamSupport.stream(this.rackRepository.findAll().spliterator(), false)
-            .map(this.rackMapper::toDTO)
-            .collect(Collectors.toList());
-  }
+	public List<RackDTO> getAll() {
+		return StreamSupport.stream(this.rackRepository.findAll().spliterator(), false).map(this.rackMapper::toDTO)
+				.collect(Collectors.toList());
+	}
 
-  public Page<RackResponse> getByWarehouseId(Integer warehouseId, int page, int size) {
-    final Pageable pageable = PageRequest.of(page, size);
-    return this.rackRepository.findByWarehouseId(warehouseId, pageable)
-            .map(this.rackMapper::toResponse);
-  }
+	public Page<RackResponse> getByWarehouseId(Integer warehouseId, int page, int size) {
+		final Pageable pageable = PageRequest.of(page, size);
+		return this.rackRepository.findByWarehouseId(warehouseId, pageable).map(this.rackMapper::toResponse);
+	}
 
-  public RackDTO getById(Integer id) {
-    return this.rackRepository.findById(id)
-            .map(this.rackMapper::toDTO)
-            .orElseThrow(() -> new IllegalArgumentException("Rack no encontrado"));
-  }
+	public RackDTO getById(Integer id) {
+		return this.rackRepository.findById(id).map(this.rackMapper::toDTO)
+				.orElseThrow(() -> new IllegalArgumentException("Rack no encontrado"));
+	}
 }

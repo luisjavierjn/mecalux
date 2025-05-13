@@ -18,25 +18,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 public class WarehouseController {
-  private static final String LOG_PREFIX = "[WAREHOUSE REST CONTROLLER]";
+	private static final String LOG_PREFIX = "[WAREHOUSE REST CONTROLLER]";
 
-  private final WarehouseService warehouseService;
+	private final WarehouseService warehouseService;
 
-  @PostMapping
-  public ResponseEntity<?> add(@RequestBody @Valid WarehouseRequest request) {
-    log.debug("{} Adding warehouse with request: {}", LOG_PREFIX, request);
-    return ResponseEntity.ok(this.warehouseService.add(request));
-  }
+	@PostMapping
+	public ResponseEntity<?> add(@RequestBody @Valid WarehouseRequest request) {
+		log.debug("{} Adding warehouse with request: {}", LOG_PREFIX, request);
+		return ResponseEntity.ok(this.warehouseService.add(request));
+	}
 
-  @GetMapping("/all")
-  public ResponseEntity<?> getAll() {
-    log.debug("{} Getting warehouses", LOG_PREFIX);
-    return ResponseEntity.ok(this.warehouseService.getAll());
-  }
+	@GetMapping("/all")
+	public ResponseEntity<?> getAll() {
+		log.debug("{} Getting warehouses", LOG_PREFIX);
+		return ResponseEntity.ok(this.warehouseService.getAll());
+	}
 
-  @GetMapping("/{id}")
-  public ResponseEntity<?> getById(@PathVariable Integer id) {
-    log.debug("{} Getting warehouse with id: {}", LOG_PREFIX, id);
-    return ResponseEntity.ok(this.warehouseService.getById(id));
-  }
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getById(@PathVariable Integer id) {
+		log.debug("{} Getting warehouse with id: {}", LOG_PREFIX, id);
+		return ResponseEntity.ok(this.warehouseService.getById(id));
+	}
+
+	@GetMapping("/{id}/permutations")
+	public ResponseEntity<?> getPermutations(@PathVariable Integer id) {
+		log.debug("{} Getting permutations for warehouse with id: {}", LOG_PREFIX, id);
+		return ResponseEntity.ok(this.warehouseService.getPermutations(id));
+	}
 }
