@@ -12,6 +12,9 @@ import com.mecalux.test.services.factories.RackFactory;
 import com.mecalux.test.services.mappers.RackMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.EnumMap;
@@ -48,10 +51,10 @@ public class RackService {
             .collect(Collectors.toList());
   }
 
-  public List<RackResponse> getByWarehouseId(Integer warehouseId) {
-    return this.rackRepository.findByWarehouseId(warehouseId).stream()
-            .map(this.rackMapper::toResponse)
-            .collect(Collectors.toList());
+  public Page<RackResponse> getByWarehouseId(Integer warehouseId, int page, int size) {
+    final Pageable pageable = PageRequest.of(page, size);
+    return this.rackRepository.findByWarehouseId(warehouseId, pageable)
+            .map(this.rackMapper::toResponse);
   }
 
   public RackDTO getById(Integer id) {

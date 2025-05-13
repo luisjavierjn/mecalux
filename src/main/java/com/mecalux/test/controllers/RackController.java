@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,10 +35,12 @@ public class RackController {
     return ResponseEntity.ok(this.rackService.getAll());
   }
 
-  @GetMapping("/warehouse/{warehouseId}")
-  public ResponseEntity<?> getByWarehouseId(@PathVariable Integer warehouseId) {
-    log.debug("{} Getting racks by warehouse id: {}", LOG_PREFIX, warehouseId);
-    return ResponseEntity.ok(this.rackService.getByWarehouseId(warehouseId));
+  @GetMapping("/warehouse/{warehouseId}/paged")
+  public ResponseEntity<?> getByWarehouseId(@PathVariable Integer warehouseId,
+                                            @RequestParam int page,
+                                            @RequestParam int size) {
+    log.debug("{} Getting paged racks by warehouse id: {}, page: {}, size: {}", LOG_PREFIX, warehouseId, page, size);
+    return ResponseEntity.ok(this.rackService.getByWarehouseId(warehouseId, page, size));
   }
 
   @GetMapping("/{id}")
