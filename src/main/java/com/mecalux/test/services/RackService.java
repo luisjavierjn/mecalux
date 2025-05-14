@@ -36,7 +36,7 @@ public class RackService {
 		final Optional<Warehouse> warehouseOpt = this.warehouseRepository.findById(request.getWarehouseId());
 		final RackFactory factory = warehouseOpt.map(Warehouse::getFamily).map(FamilyType::fromString)
 				.map(this.rackFactories::get).orElseThrow(() -> new IllegalArgumentException(
-						"Familia no soportada: " + warehouseOpt.map(Warehouse::getFamily).orElse("unknown")));
+						"Unsupported family: " + warehouseOpt.map(Warehouse::getFamily).orElse("unknown")));
 		final Rack rack = factory.createRack(request.getUuid(), request.getRackType(), warehouseOpt.get());
 		final Rack retRack = this.rackRepository.save(rack);
 		return this.rackMapper.toDTO(retRack);

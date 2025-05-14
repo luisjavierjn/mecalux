@@ -9,8 +9,7 @@ import java.util.stream.Collectors;
 public interface PermutationFactory {
 
 	default List<String> transformToList(Set<RackType> allowed) {
-		return allowed.stream().map(Enum::name) // Convierte cada RackType a su nombre en String
-				.collect(Collectors.toList());
+		return allowed.stream().map(Enum::name).collect(Collectors.toList());
 	}
 
 	List<String> generate(int size);

@@ -17,7 +17,7 @@ public class RobRackFactory implements RackFactory {
 	@Override
 	public Rack createRack(String uuid, RackType type, Warehouse warehouse) {
 		if (!this.allowed.contains(type)) {
-			throw new IllegalArgumentException("Tipo no permitido en ROB: " + type);
+			throw new IllegalArgumentException("Type not allowed in ROB: " + type);
 		}
 		return new Rack(uuid, type.name(), warehouse);
 	}

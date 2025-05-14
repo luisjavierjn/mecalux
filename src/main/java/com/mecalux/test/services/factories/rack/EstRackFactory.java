@@ -17,7 +17,7 @@ public class EstRackFactory implements RackFactory {
 	@Override
 	public Rack createRack(String uuid, RackType type, Warehouse warehouse) {
 		if (!this.allowed.contains(type)) {
-			throw new IllegalArgumentException("Tipo no permitido en EST: " + type);
+			throw new IllegalArgumentException("Type not allowed in EST: " + type);
 		}
 		return new Rack(uuid, type.name(), warehouse);
 	}
