@@ -7,6 +7,7 @@ import com.mecalux.test.domain.requests.WarehouseRequest;
 import com.mecalux.test.repositories.WarehouseRepository;
 import com.mecalux.test.services.factories.permutation.PermutationFactory;
 import com.mecalux.test.services.mappers.WarehouseMapper;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class WarehouseService {
 
 	public WarehouseDTO getById(Integer id) {
 		return this.warehouseRepository.findById(id).map(this.warehouseMapper::toDTO)
-				.orElseThrow(() -> new IllegalArgumentException("Rack no encontrado"));
+				.orElseThrow(() -> new EntityNotFoundException("Warehouse not found"));
 	}
 
 	public List<String> getPermutations(Integer id) {
@@ -44,7 +45,7 @@ public class WarehouseService {
 			final String family = w.getFamily();
 			final PermutationFactory factory = this.permutationFactories.get(FamilyType.fromString(family));
 			return factory.generate(w.getSize());
-		}).orElseThrow(() -> new IllegalArgumentException("Familia no soportada"));
+		}).orElseThrow(() -> new EntityNotFoundException("Warehouse not found"));
 	}
 
 	public WarehouseDTO update(Integer id, @Valid WarehouseRequest request) {
@@ -54,7 +55,7 @@ public class WarehouseService {
 			w.setFamily(request.getFamilyType().name());
 			w.setSize(request.getSize());
 			return w;
-		}).orElseThrow(() -> new IllegalArgumentException("Warehouse not found"));
+		}).orElseThrow(() -> new EntityNotFoundException("Warehouse not found"));
 		final Warehouse retWarehouse = this.warehouseRepository.save(warehouse);
 		return this.warehouseMapper.toDTO(retWarehouse);
 	}

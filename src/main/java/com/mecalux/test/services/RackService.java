@@ -10,6 +10,7 @@ import com.mecalux.test.repositories.RackRepository;
 import com.mecalux.test.repositories.WarehouseRepository;
 import com.mecalux.test.services.factories.rack.RackFactory;
 import com.mecalux.test.services.mappers.RackMapper;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -53,7 +54,7 @@ public class RackService {
 
 	public RackDTO getById(Integer id) {
 		return this.rackRepository.findById(id).map(this.rackMapper::toDTO)
-				.orElseThrow(() -> new IllegalArgumentException("Rack no encontrado"));
+				.orElseThrow(() -> new EntityNotFoundException("Rack not found"));
 	}
 
 	public RackDTO update(Integer id, @Valid RackRequest request) {
@@ -61,7 +62,7 @@ public class RackService {
 			r.setUuid(request.getUuid());
 			r.setType(request.getRackType().name());
 			return r;
-		}).orElseThrow(() -> new IllegalArgumentException("Rack not found"));
+		}).orElseThrow(() -> new EntityNotFoundException("Rack not found"));
 		final Rack retRack = this.rackRepository.save(rack);
 		return this.rackMapper.toDTO(retRack);
 	}
