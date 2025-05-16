@@ -7,7 +7,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface RackRepository extends PagingAndSortingRepository<Rack, Integer>, CrudRepository<Rack, Integer> {
-  Page<Rack> findByWarehouseId(Integer warehouseId, Pageable pageable);
+	List<Rack> findByWarehouseId(Integer warehouseId);
+	Page<Rack> findByWarehouseId(Integer warehouseId, Pageable pageable);
 }

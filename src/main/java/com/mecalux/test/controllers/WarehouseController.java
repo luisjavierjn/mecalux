@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,6 +35,12 @@ public class WarehouseController {
 	public ResponseEntity<?> getAll() {
 		log.debug("{} Getting warehouses", LOG_PREFIX);
 		return ResponseEntity.ok(this.warehouseService.getAll());
+	}
+
+	@GetMapping("/all/paged")
+	public ResponseEntity<?> getAll(@RequestParam int page, @RequestParam int size) {
+		log.debug("{} Getting paged warehouses", LOG_PREFIX);
+		return ResponseEntity.ok(this.warehouseService.getAll(page, size));
 	}
 
 	@GetMapping("/{id}")

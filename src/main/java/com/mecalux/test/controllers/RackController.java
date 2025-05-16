@@ -37,6 +37,18 @@ public class RackController {
 		return ResponseEntity.ok(this.rackService.getAll());
 	}
 
+	@GetMapping("/all/paged")
+	public ResponseEntity<?> getAll(@RequestParam int page, @RequestParam int size) {
+		log.debug("{} Getting paged racks", LOG_PREFIX);
+		return ResponseEntity.ok(this.rackService.getAll(page, size));
+	}
+
+	@GetMapping("/warehouse/{warehouseId}")
+	public ResponseEntity<?> getByWarehouseId(@PathVariable Integer warehouseId) {
+		log.debug("{} Getting racks by warehouse id: {}", LOG_PREFIX, warehouseId);
+		return ResponseEntity.ok(this.rackService.getByWarehouseId(warehouseId));
+	}
+
 	@GetMapping("/warehouse/{warehouseId}/paged")
 	public ResponseEntity<?> getByWarehouseId(@PathVariable Integer warehouseId, @RequestParam int page,
 			@RequestParam int size) {

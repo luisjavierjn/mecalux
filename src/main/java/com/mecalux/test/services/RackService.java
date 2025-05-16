@@ -47,6 +47,16 @@ public class RackService {
 				.collect(Collectors.toList());
 	}
 
+	public Page<RackDTO> getAll(int page, int size) {
+		final Pageable pageable = PageRequest.of(page, size);
+		return this.rackRepository.findAll(pageable).map(this.rackMapper::toDTO);
+	}
+
+	public List<RackResponse> getByWarehouseId(Integer warehouseId) {
+		return this.rackRepository.findByWarehouseId(warehouseId).stream().map(this.rackMapper::toResponse)
+				.collect(Collectors.toList());
+	}
+
 	public Page<RackResponse> getByWarehouseId(Integer warehouseId, int page, int size) {
 		final Pageable pageable = PageRequest.of(page, size);
 		return this.rackRepository.findByWarehouseId(warehouseId, pageable).map(this.rackMapper::toResponse);

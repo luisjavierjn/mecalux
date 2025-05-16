@@ -10,6 +10,8 @@ import com.mecalux.test.services.mappers.WarehouseMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.EnumMap;
@@ -33,6 +35,10 @@ public class WarehouseService {
 	public List<WarehouseDTO> getAll() {
 		return StreamSupport.stream(this.warehouseRepository.findAll().spliterator(), false)
 				.map(this.warehouseMapper::toDTO).collect(Collectors.toList());
+	}
+
+	public Page<WarehouseDTO> getAll(int page, int size) {
+		return this.warehouseRepository.findAll(PageRequest.of(page, size)).map(this.warehouseMapper::toDTO);
 	}
 
 	public WarehouseDTO getById(Integer id) {
@@ -63,4 +69,5 @@ public class WarehouseService {
 	public void delete(Integer id) {
 		this.warehouseRepository.deleteById(id);
 	}
+
 }
